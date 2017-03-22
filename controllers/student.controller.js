@@ -1,13 +1,13 @@
 let express = require('express'),
     router = express.Router(),
-    userModal = require("../model/user.model"),
+    studentModal = require("../model/student.model"),
     fs = require('fs');
 if(!fs.existsSync('logs')) {
     fs.mkdirSync('logs');
 }
 let logger = require("../utilities/logger.js");
-router.get("/getUser", function (req, res) {
-    userModal.findOne({ "email": req.query.email }, function (err, data) {
+router.get("/getStudent", function (req, res) {
+    studentModal.findOne({ "email": req.query.email }, function (err, data) {
         if (err) {
             logger.error(err);
             res.send(err);
@@ -23,8 +23,8 @@ router.get("/getUser", function (req, res) {
     });
 });
 
-router.post("/addUser", function (req, res) {
-    let userInstance = new userModal({
+router.post("/addStudent", function (req, res) {
+    let userInstance = new studentModal({
         email: req.body.email,
         password: req.body.password,
         phone_no: req.body.phone_no
@@ -40,11 +40,11 @@ router.post("/addUser", function (req, res) {
     });
 });
 
-router.put("/updateUser", function (req, res) {
+router.put("/updateStudent", function (req, res) {
     let updatedData = {};
     req.body.phone_no ? updatedData.phone_no = req.body.phone_no : "";
     req.body.password ? updatedData.password = req.body.password : "";
-    userModal.findOneAndUpdate({ "email": req.body.email }, updatedData, { new: true }, function (err, data) {
+    studentModal.findOneAndUpdate({ "email": req.body.email }, updatedData, { new: true }, function (err, data) {
         if (err) {
             logger.error(err);
             res.send(err);
@@ -61,8 +61,8 @@ router.put("/updateUser", function (req, res) {
     });
 });
 
-router.delete("/deleteUser", function (req, res) {
-    userModal.findOneAndRemove({ "email": req.body.email }, function (err, data) {
+router.delete("/deleteStudent", function (req, res) {
+    studentModal.findOneAndRemove({ "email": req.body.email }, function (err, data) {
         if (err) {
             logger.error(err);
             res.json(err).end();
