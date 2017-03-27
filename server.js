@@ -33,8 +33,8 @@ app.use(session({
 app.use('/', expressJWT({ secret: "mysecret", credentialsRequired: true }).unless(
     {
         path: [
-            '/auth/signUp',
-            '/auth/signIn'
+            '/user/signUp',
+            '/user/signIn'
         ]
     }));
 
@@ -45,15 +45,15 @@ app.use(function (err, req, res, next) {
 });
 
 // app.use("/students/",require("./controllers/student.controller"));
-app.use("/auth/", require("./controllers/auth.controller"));
+app.use("/user/", require("./controllers/auth.controller"));
 app.use("/home", function (req, res) {
     console.log(res.send("home page rendered"));
 });
 
 app.use("/account", require("./controllers/account.controller"));
+app.use("/exams", require("./controllers/exam.controller"));
 
 app.use("/login", function (req, res) {
-    console.log(req);
     res.send({ "username": req.session.passport.user });
 });
 app.listen(3000, function (req, res) {
