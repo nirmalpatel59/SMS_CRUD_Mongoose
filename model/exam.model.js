@@ -14,7 +14,8 @@ let examSchema = new Schema({
     duration_type: { type:String},
     passing_marks:{type:Number},
     updated_at: { type: String, default: Date.now() },
-    created_at: { type: String, default: Date.now() }
+    created_at: { type: String, default: Date.now() },
+    exam_date: {type: String, required:true}
 });
 
 let examModel = mongoose.model("exams",examSchema);

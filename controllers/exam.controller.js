@@ -1,5 +1,6 @@
 var express = require("express"),
     app =express(),
+    moment = require("moment")
     userModel = require("../model/user.model"),
     examModel = require("../model/exam.model"),
     router=express.Router();
@@ -7,6 +8,9 @@ var express = require("express"),
 router.get("/examInfo",getExamInfo);
 router.get("/examsInfo", getExamsByUser);
 router.post("/examInfo",saveExamInfo);
+router.delete("/removeExam", removeExam);
+router.put("/updateExam", updateExam);
+
 function getExamInfo(req, res) {
     if(req.user.username) {
         examModel.examModel.findOne({exam_id:req.query.exam_id}).populate("created_by",['first_name','last_name','username']).exec(function(err, data) {
@@ -39,6 +43,7 @@ function saveExamInfo(req, res) {
             duration: req.body.duration,
             duration_type: req.body.duration_type,
             passing_marks: req.body.passing_marks,
+            exam_date: req.body.exam_date,
             updated_at: Date.now(),
             created_at: Date.now()
         });
@@ -73,6 +78,40 @@ function getExamsByUser(req, res) {
     }else {
         res.send("No user found").status(404);
     }
+}
+
+function removeExam(req, res) {
+    examModel.examModel.findOneAndRemove(req.query.exam_id, function(err, data) {
+        if(err) {
+            res.send(err);
+        }else {
+            res.send(data);
+        }
+    });
+}
+
+function updateExam(req, res) {
+    var updatedata = {
+        "exam_name":req.body.exam_name,
+        "type": req.body.type,
+        "total_marks": req.body.total_marks,
+        "standard": req.body.standard,
+        "standard_stream": req.body.standard_stream,
+        "subject": req.body.subject,
+        "created_by": req.body.created_by,
+        "duration": req.body.duration,
+        "duration_type": req.body.duration_type,
+        "passing_marks": req.body.passing_marks,
+        "updated_at": Date.now(),
+        "exam_date": req.body.exam_date
+    };
+    examModel.examModel.findOneAndUpdate({ "exam_id": req.body.exam_id }, updatedata, {new : true}, function(err, data) {
+        if(err) {
+            res.send(err);
+        }else {
+            res.send(data);
+        }
+    });
 }
 
 module.exports = router;
