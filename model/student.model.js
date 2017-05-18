@@ -9,5 +9,5 @@ userSchema.path('email').validate(function (email) {
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(email);
 }, 'Email field is invalid');
-let userModal = mongoose.model('student', userSchema);
+let userModal = mongoose.model('students', userSchema);
 module.exports = userModal;
