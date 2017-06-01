@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.16.1",
     "connect-mongo": "^1.3.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.1",
     "express-jwt": "^5.1.0",
     "express-session": "^1.15.1",
@@ -22,5 +23,8 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
   }
 }
