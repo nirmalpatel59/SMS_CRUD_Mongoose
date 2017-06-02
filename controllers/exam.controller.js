@@ -1,6 +1,6 @@
 var express = require('express')
 let userModel = require('../model/user.model')
-let examModel = require('../model/exam.model')
+let ExamModel = require('../model/exam.model')
 let router = express.Router()
 
 router.get('/examInfo', getExamInfo)
@@ -11,7 +11,7 @@ router.put('/updateExam', updateExam)
 
 function getExamInfo (req, res) {
   if (req.user.username) {
-    examModel.findOne({exam_id: req.query.exam_id}).populate('created_by', ['first_name', 'last_name', 'username']).exec(function (err, data) {
+    ExamModel.findOne({exam_id: req.query.exam_id}).populate('created_by', ['first_name', 'last_name', 'username']).exec(function (err, data) {
       if (err) {
         res.send(err)
       } else {
@@ -29,13 +29,14 @@ function getExamInfo (req, res) {
 
 function saveExamInfo (req, res) {
   if (req.user.username) {
-    var examInstance = new examModel({
+    var examInstance = new ExamModel({
       exam_id: req.body.exam_id,
       exam_name: req.body.exam_name,
       type: req.body.type,
       total_marks: req.body.total_marks,
       standard: req.body.standard,
       standard_stream: req.body.standard_stream,
+      medium: req.body.medium,
       subject: req.body.subject,
       created_by: req.body.created_by,
       duration: req.body.duration,
@@ -62,7 +63,7 @@ function getExamsByUser (req, res) {
         res.send(err)
       } else {
         console.log(data1)
-        examModel.find({ created_by: data1._id }).exec(function (err, data) {
+        ExamModel.find({ created_by: data1._id }).exec(function (err, data) {
           if (err) {
             res.send(err)
           } else {
@@ -77,7 +78,7 @@ function getExamsByUser (req, res) {
 }
 
 function removeExam (req, res) {
-  examModel.findOneAndRemove(req.query.exam_id, function (err, data) {
+  ExamModel.findOneAndRemove(req.query.exam_id, function (err, data) {
     if (err) {
       res.send(err)
     } else {
@@ -93,15 +94,15 @@ function updateExam (req, res) {
     'total_marks': req.body.total_marks,
     'standard': req.body.standard,
     'standard_stream': req.body.standard_stream,
+    'medium': req.body.medium,
     'subject': req.body.subject,
     'created_by': req.body.created_by,
     'duration': req.body.duration,
     'duration_type': req.body.duration_type,
     'passing_marks': req.body.passing_marks,
-    'updated_at': Date.now(),
     'exam_date': req.body.exam_date
   }
-  examModel.findOneAndUpdate({ 'exam_id': req.body.exam_id }, updatedata, {new: true}, function (err, data) {
+  ExamModel.findOneAndUpdate({ 'exam_id': req.body.exam_id }, updatedata, {new: true}, function (err, data) {
     if (err) {
       res.send(err)
     } else {

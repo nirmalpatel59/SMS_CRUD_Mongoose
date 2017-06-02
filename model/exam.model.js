@@ -7,14 +7,13 @@ let examSchema = new Schema({
   type: { type: String, required: true },
   total_marks: { type: Number, required: true },
   standard: { type: Number, required: true },
+  medium: { type: String, required: true },
   standard_stream: { type: String },
   subject: { type: String },
   created_by: { type: Schema.ObjectId, ref: 'users' },
-  duration: {type: Number},
+  duration: { type: Number },
   duration_type: { type: String },
-  passing_marks: {type: Number},
-  updated_at: { type: String, default: Date.now() },
-  created_at: { type: String, default: Date.now() },
+  passing_marks: { type: Number },
   exam_date: { type: String, required: true }
 }, {
   timestamps: true

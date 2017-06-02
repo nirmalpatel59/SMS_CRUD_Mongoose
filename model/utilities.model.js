@@ -1,22 +1,26 @@
-let mongoose = require('./mongoose')
+let mongoose = require('mongoose')
 let Schema = mongoose.Schema
 
 let newsSchema = new Schema({
   added_by: { type: String },
-  added_by_name: { type: String },
-  msg: { type: String },
-  status: { type: String }
+  message: { type: String },
+  status: { type: String },
+  end_date: { type: Date },
+  newsId: { type: String, unique: true },
+  type: { type: String }
 }, {
-  timestamp: true
+  timestamps: true
 })
-
+// TODO :: create announcement schema based on result schema
 let announcementSchema = new Schema({
   added_by: { type: String },
-  added_by_name: { type: String },
-  msg: { type: String },
-  status: { type: String }
+  message: { type: String },
+  status: { type: String },
+  ancId: { type: String },
+  type: { type: String },
+  end_date: { type: Date }
 }, {
-  timestamp: true
+  timestamps: true
 })
 
 module.exports = {

@@ -55,7 +55,7 @@ app.use('/home', function (req, res) {
 
 app.use('/account', require('./controllers/account.controller'))
 app.use('/exams', require('./controllers/exam.controller'))
-
+app.use('/utilities', require('./controllers/utilities.controller'))
 app.use('/login', function (req, res) {
   res.send({ 'username': req.session.passport.user })
 })
