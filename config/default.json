@@ -1,0 +1,8 @@
+{
+  "PORT": 3000,
+  "USERS_COLLECTION": "users",
+  "EXAMS_COLLECTION": "exams",
+  "STUDENTS_COLLECTION": "students",
+  "NEWS_COLLECTION": "news",
+  "ANNOUNCEMENTS_COLLECTION": "announcements"
+}

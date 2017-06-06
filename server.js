@@ -2,8 +2,7 @@ let express = require('express')
 let app = express()
 let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
-let config = require('./config')
-console.log(config)
+let config = require('config')
 // let passport = require('passport'),
 let session = require('express-session')
 let expressJWT = require('express-jwt')
@@ -63,3 +62,5 @@ app.use('/login', function (req, res) {
 app.listen(config.PORT, function (req, res) {
   console.log('server is running on port :: ' + config.PORT)
 })
+
+module.exports = app

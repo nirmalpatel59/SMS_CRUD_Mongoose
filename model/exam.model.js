@@ -1,5 +1,6 @@
 let mongoose = require('mongoose')
 let Schema = mongoose.Schema
+let config = require('config')
 
 let examSchema = new Schema({
   exam_id: {type: String, required: true, unique: true},
@@ -10,7 +11,7 @@ let examSchema = new Schema({
   medium: { type: String, required: true },
   standard_stream: { type: String },
   subject: { type: String },
-  created_by: { type: Schema.ObjectId, ref: 'users' },
+  created_by: { type: Schema.ObjectId, ref: config.USERS_COLLECTION },
   duration: { type: Number },
   duration_type: { type: String },
   passing_marks: { type: Number },
@@ -19,4 +20,4 @@ let examSchema = new Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('exams', examSchema)
+module.exports = mongoose.model(config.EXAMS_COLLECTION, examSchema)

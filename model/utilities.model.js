@@ -1,6 +1,6 @@
 let mongoose = require('mongoose')
 let Schema = mongoose.Schema
-
+let config = require('config')
 let newsSchema = new Schema({
   added_by: { type: String },
   message: { type: String },
@@ -24,6 +24,6 @@ let announcementSchema = new Schema({
 })
 
 module.exports = {
-  newsModel: mongoose.model('news', newsSchema),
-  announcementModel: mongoose.model('announcement', announcementSchema)
+  newsModel: mongoose.model(config.NEWS_COLLECTION, newsSchema),
+  announcementModel: mongoose.model(config.ANNOUNCEMENTS_COLLECTION, announcementSchema)
 }

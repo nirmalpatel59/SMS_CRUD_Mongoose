@@ -1,5 +1,6 @@
 let mongoose = require('mongoose')
 let Schema = mongoose.Schema
+let config = require('config')
 let passportLocalMongoose = require('passport-local-mongoose')
 let userSchema = new Schema({
   first_name: {type: String, required: true},
@@ -24,4 +25,4 @@ let userSchema = new Schema({
   current_standard_association: {type: Array}
 })
 userSchema.plugin(passportLocalMongoose)
-module.exports = mongoose.model('users', userSchema)
+module.exports = mongoose.model(config.USERS_COLLECTION, userSchema)
